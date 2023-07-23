@@ -97,8 +97,8 @@ public class MyWorld extends World
         addObject(new Enemy(),902,496);//Enemigo
         
         addObject(new AnswerBar(),320,200);
-        addObject(new Answer(),252,192);
-        addObject(new Answer(),330,192);
-        addObject(new Answer(),406,192);
+        addObject(new InputAnswer(),252,192);
+        addObject(new InputAnswer(),330,192);
+        addObject(new InputAnswer(),406,192);
     }
 }
