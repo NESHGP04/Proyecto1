@@ -279,10 +279,9 @@ public class MyWorld extends World
             if(answers[0] != ""){
                 String playerAnswerString = answers[0]+answers[1];
                 playerAnswer = Integer.parseInt(playerAnswerString);
+                compareResults();
+                resetNumbers();
             }
-            
-            compareResults();
-            resetNumbers();
         }
         
         if("backspace".equals(key)){
@@ -309,13 +308,13 @@ public class MyWorld extends World
     public void compareResults(){
         int correctAnswer = operations.getResult();
         
-        if(playerAnswer != correctAnswer || answers[0] == ""){
+        if(playerAnswer != correctAnswer || answers[0] == ""){//Incorrecto
             healthBar.damage();
             player.toggleDamage();
             enemy.toggleAttack();
             transitioning = true;
         }
-        else{
+        else{//Correcto
             player.toggleAttack();
             enemy.toggleDamage();
             enemiesDefeated++;
@@ -408,7 +407,7 @@ public class MyWorld extends World
         enemy.win();
         
         showText("",768,45);
-        showEnemiesDefeated(640,200);
+        showEnemiesDefeated(640,220);
         addObject(startingCountdown,640,360);
         GreenfootImage gameOverScreen = new GreenfootImage("GameOverScreen.png");
         startingCountdown.setImage(gameOverScreen);
