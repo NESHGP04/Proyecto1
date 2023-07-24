@@ -1,6 +1,11 @@
-import greenfoot.*;  
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-
+/**
+ * Write a description of class Player here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
 public class Player extends Actor
 {
     private int health = 5;
@@ -26,7 +31,6 @@ public class Player extends Actor
     public void toggleDamage(){
         isGettingHit = true;
         health--;
-        System.out.println("Damage");
     }
     
     public void damage(){
@@ -53,7 +57,6 @@ public class Player extends Actor
     
     public void toggleAttack(){
         isAttacking = true;
-        System.out.println("Attack");
     }
     
     public void attack(){
@@ -80,7 +83,6 @@ public class Player extends Actor
     
     public void lose(){
         defeated = true;
-        System.out.println("Defeated");
     }
     
     public void loseAnimation(){

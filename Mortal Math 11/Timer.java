@@ -15,30 +15,30 @@ public class Timer extends Actor
     public void act()
     {
         //Temporizador de 5 segundos
-        switch(timer)
-        {
-            case 200:
-                setImage(imageTimer2);
-                break;
-            case 150:
-                setImage(imageTimer3);
-                break;
-            case 100:
-                setImage(imageTimer4);
-                break;
-            case 50:
-                setImage(imageTimer5);
-                break;
-            case 0:
-                setImage(imageTimer6);
-                break;
-        }
+        //switch(timer)
+        //{
+        //    case 200:
+          //      setImage(imageTimer2);
+            //    break;
+            //case 150:
+              //  setImage(imageTimer3);
+                //break;
+            //case 100:
+              //  setImage(imageTimer4);
+                //break;
+            //case 50:
+              //  setImage(imageTimer5);
+                //break;
+            //case 0:
+              //  setImage(imageTimer6);
+                //break;
+        //}
         
-        timer--;
+        //timer--;
         
-        if(timer <= -25){
-            timer = 250;
-            setImage(imageTimer1);
-        }
+        //if(timer <= -25){
+          //  timer = 250;
+            //setImage(imageTimer1);
+        //}
     }
 }

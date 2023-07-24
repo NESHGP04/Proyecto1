@@ -8,7 +8,8 @@ public class Operations extends Actor
     private float num2;
     private float fResult = 0.0f;
     private int result = 0;
-    private boolean esEntero = true;
+    private boolean esEntero = false;
+    private boolean esPositivo = false;
     
     Random random = new Random();
     
@@ -33,7 +34,6 @@ public class Operations extends Actor
     
     public void setNum1(){
         num1 = random.nextInt(10);
-        System.out.println("Num1: " + num1);
     }
     
     public int getNum1(){
@@ -43,7 +43,6 @@ public class Operations extends Actor
     
     public void setNum2(){
         num2 = random.nextInt(10);
-        System.out.println("Num2: " + num2);
     }
     
     public int getNum2(){
@@ -51,14 +50,17 @@ public class Operations extends Actor
         return numero2;
     }
     
-    public int resultado()
-    {        
-        while(esEntero == true)
+    public void operar()
+    {
+        esEntero = false;
+        esPositivo = false;
+        
+        while(esEntero == false || esPositivo == false)
         {
             setNum1();
             setNum2();
             setOperator();
-            
+
             switch(operator){
                 case 1:
                     fResult = num1 + num2;
@@ -73,12 +75,17 @@ public class Operations extends Actor
                     fResult = num1 * num2;
                     break;
             }
-            
+
             esEntero = (fResult - Math.floor(fResult) == 0.0f);
+            esPositivo = fResult >= 0.0f;
         }
         
+        num1 = num1; 
+        num2 = num2;
         result = (int)fResult;
-        
+    }
+    
+    public int getResult(){
         return result;
     }
 }
