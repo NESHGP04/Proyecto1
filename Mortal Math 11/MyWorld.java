@@ -1,4 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyAdapter;
 
 public class MyWorld extends World
 {
@@ -19,10 +22,12 @@ public class MyWorld extends World
     private int numberPosition = 0;
     private int playerAnswer = 0;
     private int enemiesDefeated = 0;
+    private int[] keyRepeat = {0,0,0,0,0,0,0,0,0,0,0,0};
     
     private boolean beginGame = false;
     private boolean gameOver = false;
     private boolean transitioning = false;
+    private boolean keyPressed = false;
     
     private Player player = new Player();
     private Enemy enemy = new Enemy();
@@ -46,7 +51,6 @@ public class MyWorld extends World
         setBackground("fondoTraining.jpg");
     }
     
-    
     public void act(){
         if(gameOver){
             showText("",768,45);
@@ -69,6 +73,11 @@ public class MyWorld extends World
             
         if(player.getHealth() <= 0)
             gameOver();
+            
+        if(keyPressed == false){
+            for(int i = 0; i <= 11; i++)
+                keyRepeat[i] = 0;
+        }
             
         showEnemiesDefeated(768,45);
     }
@@ -162,9 +171,8 @@ public class MyWorld extends World
     }
     
     public void userKeyboardInput(){
-        key = Greenfoot.getKey();
-        
-        if("1".equals(key)){
+        //key = Greenfoot.getKey();
+        /*if("1".equals(key)){
             GreenfootImage img = new GreenfootImage(imagesNames[1]);
             
             if(numberPosition <= 1)
@@ -173,124 +181,204 @@ public class MyWorld extends World
                 answers[numberPosition] = "1";
                 numberPosition++;
             }
+        }*/
+        if(Greenfoot.isKeyDown("q")){
+            System.out.println("q");
         }
         
-        if("2".equals(key)){
+        if(Greenfoot.isKeyDown("1")){
+            keyPressed = true;
+            
+            keyRepeat[1]++;
+            
+            if(keyRepeat[1] <= 1){
+            GreenfootImage img = new GreenfootImage(imagesNames[1]);
+            
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "1";
+                    numberPosition++;
+                }
+            }
+        }
+        else if(Greenfoot.isKeyDown("2")){
+            keyPressed = true;
+            
+            keyRepeat[2]++;
+            
+            if(keyRepeat[2]<= 1){
             GreenfootImage img = new GreenfootImage(imagesNames[2]);
             
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "2";
-                numberPosition++;
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "2";
+                    numberPosition++;
+                }
             }
         }
-        
-        if("3".equals(key)){
+        else if(Greenfoot.isKeyDown("3")){
+            keyPressed = true;
+            
+            keyRepeat[3]++;
+            
+            if(keyRepeat[3] <= 1){
             GreenfootImage img = new GreenfootImage(imagesNames[3]);
             
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "3";
-                numberPosition++;
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "3";
+                    numberPosition++;
+                }
             }
         }
-        
-        if("4".equals(key)){
+        else if(Greenfoot.isKeyDown("4")){
+            keyPressed = true;
+            
+            keyRepeat[4]++;
+            
+            if(keyRepeat[4] <= 1){
             GreenfootImage img = new GreenfootImage(imagesNames[4]);
-        
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "4";
-                numberPosition++;
+            
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "4";
+                    numberPosition++;
+                }
             }
         }
-        
-        if("5".equals(key)){
+        else if(Greenfoot.isKeyDown("5")){
+            keyPressed = true;
+            
+            keyRepeat[5]++;
+            
+            if(keyRepeat[5] <= 1){
             GreenfootImage img = new GreenfootImage(imagesNames[5]);
             
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "5";
-                numberPosition++;
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "5";
+                    numberPosition++;
+                }
             }
         }
-        
-        if("6".equals(key)){
+        else if(Greenfoot.isKeyDown("6")){
+            keyPressed = true;
+            
+            keyRepeat[6]++;
+            
+            if(keyRepeat[6] <= 1){
             GreenfootImage img = new GreenfootImage(imagesNames[6]);
             
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "6";
-                numberPosition++;
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "6";
+                    numberPosition++;
+                }
             }
         }
-        
-        if("7".equals(key)){
-            GreenfootImage img = new GreenfootImage(imagesNames[7]);
-  
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "7";
-                numberPosition++;
-            }
-        }
-        
-        if("8".equals(key)){
-            GreenfootImage img = new GreenfootImage(imagesNames[8]);
- 
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "8";
-                numberPosition++;
-            }
-        }
-        
-        if("9".equals(key)){
-            GreenfootImage img = new GreenfootImage(imagesNames[9]);
-
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "9";
-                numberPosition++;
-            }
-        }
-        
-        if("0".equals(key)){
-            GreenfootImage img = new GreenfootImage(imagesNames[0]);
-
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "0";
-                numberPosition++;
-            }
-        }
-        
-        if("enter".equals(key)){
+        else if(Greenfoot.isKeyDown("7")){
+            keyPressed = true;
             
-            if(answers[0] != ""){
-                String playerAnswerString = answers[0]+answers[1];
-                playerAnswer = Integer.parseInt(playerAnswerString);
-                compareResults();
-                resetNumbers();
+            keyRepeat[7]++;
+            
+            if(keyRepeat[7] <= 1){
+            GreenfootImage img = new GreenfootImage(imagesNames[7]);
+            
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "7";
+                    numberPosition++;
+                }
             }
         }
-        
-        if("backspace".equals(key)){
-            GreenfootImage less = new GreenfootImage("underscore.png");
-            if(numberPosition > 0)
-            {
-                numberPosition--;
-                ansList[numberPosition].setImage(less);
+        else if(Greenfoot.isKeyDown("8")){
+            keyPressed = true;
+            
+            keyRepeat[8]++;
+            
+            if(keyRepeat[8] <= 1){
+            GreenfootImage img = new GreenfootImage(imagesNames[8]);
+            
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "8";
+                    numberPosition++;
+                }
             }
+        }
+        else if(Greenfoot.isKeyDown("9")){
+            keyPressed = true;
+            
+            keyRepeat[9]++;
+            
+            if(keyRepeat[9] <= 1){
+            GreenfootImage img = new GreenfootImage(imagesNames[9]);
+            
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "9";
+                    numberPosition++;
+                }
+            }
+        }
+        else if(Greenfoot.isKeyDown("0")){
+            keyPressed = true;
+            
+            keyRepeat[0]++;
+            
+            if(keyRepeat[0] <= 1){
+            GreenfootImage img = new GreenfootImage(imagesNames[0]);
+            
+                if(numberPosition <= 1)
+                {
+                    ansList[numberPosition].setImage(img);
+                    answers[numberPosition] = "0";
+                    numberPosition++;
+                }
+            }
+        }
+        else if(Greenfoot.isKeyDown("enter")){
+            keyPressed = true;
+            
+            keyRepeat[10]++;
+            
+            if(keyRepeat[10] <= 1){
+                if(answers[0] != ""){
+                    String playerAnswerString = answers[0]+answers[1];
+                    playerAnswer = Integer.parseInt(playerAnswerString);
+                    System.out.println("Respuesta del jugador: " + playerAnswer+ ", respuesta correcta: " +operations.getResult());
+                    compareResults();
+                    resetNumbers();
+                }
+            }
+        }
+        else if(Greenfoot.isKeyDown("backspace")){
+            keyPressed = true;
+            
+            keyRepeat[11]++;
+            
+            if(keyRepeat[11] <= 1){
+            GreenfootImage less = new GreenfootImage("underscore.png");
+                if(numberPosition > 0)
+                {
+                    numberPosition--;
+                    ansList[numberPosition].setImage(less);
+                    answers[numberPosition] = "";
+                }
+            }
+        }
+        else{
+            keyPressed = false;
+            
         }
     }
     
