@@ -36,7 +36,6 @@ public class MyWorld extends World
     private Answer ans2 = new Answer();
     private AnswerBar answerBar = new AnswerBar();
     private Answer[] ansList = {ans1,ans2};
-    private String key = "";
     
     private String[] answers = {"","",""};
     
@@ -57,12 +56,11 @@ public class MyWorld extends World
             return;
         }
         
-        if(!beginGame)
+        if(!beginGame){
             startingCountdown();
-                
-        if(!beginGame)
             return;
-            
+        }
+                        
         if(!transitioning){
             userKeyboardInput();
             countdownOriginal();
@@ -171,21 +169,6 @@ public class MyWorld extends World
     }
     
     public void userKeyboardInput(){
-        //key = Greenfoot.getKey();
-        /*if("1".equals(key)){
-            GreenfootImage img = new GreenfootImage(imagesNames[1]);
-            
-            if(numberPosition <= 1)
-            {
-                ansList[numberPosition].setImage(img);
-                answers[numberPosition] = "1";
-                numberPosition++;
-            }
-        }*/
-        if(Greenfoot.isKeyDown("q")){
-            System.out.println("q");
-        }
-        
         if(Greenfoot.isKeyDown("1")){
             keyPressed = true;
             
@@ -353,9 +336,6 @@ public class MyWorld extends World
             
             if(keyRepeat[10] <= 1){
                 if(answers[0] != ""){
-                    String playerAnswerString = answers[0]+answers[1];
-                    playerAnswer = Integer.parseInt(playerAnswerString);
-                    System.out.println("Respuesta del jugador: " + playerAnswer+ ", respuesta correcta: " +operations.getResult());
                     compareResults();
                     resetNumbers();
                 }
@@ -395,6 +375,9 @@ public class MyWorld extends World
     
     public void compareResults(){
         int correctAnswer = operations.getResult();
+        
+        String playerAnswerString = answers[0]+answers[1];
+        playerAnswer = Integer.parseInt(playerAnswerString);
         
         if(playerAnswer != correctAnswer || answers[0] == ""){//Incorrecto
             healthBar.damage();
