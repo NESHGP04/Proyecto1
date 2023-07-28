@@ -6,7 +6,7 @@ import java.awt.event.KeyAdapter;
 public class MyWorld extends World
 {
     private Timer timer = new Timer();
-    private HealthBar healthBar = new HealthBar();
+    private HealthBar healthBar = new HealthBar(1);
     private StartingCountdown startingCountdown = new StartingCountdown();
     
     private Operations operations = new Operations();
@@ -52,7 +52,7 @@ public class MyWorld extends World
     
     public void act(){
         if(gameOver){
-            showText("",768,45);
+            showEnemiesDefeated("",768,45);
             return;
         }
         
@@ -76,12 +76,16 @@ public class MyWorld extends World
             for(int i = 0; i <= 11; i++)
                 keyRepeat[i] = 0;
         }
-            
-        showEnemiesDefeated(768,45);
+        
+        if(!gameOver)
+            showEnemiesDefeated("Enemies defeated: ",768,45);
     }
     
-    public void showEnemiesDefeated(int x, int y){
-        showText(("Enemies Defeated: "+ enemiesDefeated),x,y);
+    public void showEnemiesDefeated(String theText, int x, int y){
+        theText = theText + enemiesDefeated;
+        GreenfootImage text = new GreenfootImage(theText, 30,Color.WHITE, Color.BLACK);
+        getBackground().drawImage(text, x, y);
+        //showText(("Enemies Defeated: "+ enemiesDefeated),x,y);
     }
     
     public void startingCountdown(){
@@ -376,8 +380,13 @@ public class MyWorld extends World
     public void compareResults(){
         int correctAnswer = operations.getResult();
         
+        if(answers[0] != "")
+        {
         String playerAnswerString = answers[0]+answers[1];
-        playerAnswer = Integer.parseInt(playerAnswerString);
+        playerAnswer = Integer.parseInt(playerAnswerString);        
+        }
+        else
+        playerAnswer = 0;
         
         if(playerAnswer != correctAnswer || answers[0] == ""){//Incorrecto
             healthBar.damage();
@@ -478,7 +487,7 @@ public class MyWorld extends World
         enemy.win();
         
         showText("",768,45);
-        showEnemiesDefeated(640,220);
+        showEnemiesDefeated("Enemies defeated: ",520,220);
         addObject(startingCountdown,640,360);
         GreenfootImage gameOverScreen = new GreenfootImage("GameOverScreen.png");
         startingCountdown.setImage(gameOverScreen);
