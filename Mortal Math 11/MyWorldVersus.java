@@ -9,8 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyWorldVersus extends World
 {
     private Timer timer = new Timer();
-    private HealthBar healthBarP1 = new HealthBar();
-    private HealthBar healthBarP2 = new HealthBar();
+    private HealthBar healthBarP1 = new HealthBar(1);
+    private HealthBar healthBarP2 = new HealthBar(2);
     private StartingCountdown startingCountdown = new StartingCountdown();
     
     private Operations operations = new Operations();
@@ -35,6 +35,11 @@ public class MyWorldVersus extends World
     private boolean transitioning = false;
     private boolean keyPressedP1 = false;
     private boolean keyPressedP2 = false;
+    private boolean player1Win = false;
+    private boolean player2Win = false;
+    private boolean isATie = false;
+    private boolean sentByP1 = false;
+    private boolean sentByP2 = false;
     
     private TwoPlayer player1 = new TwoPlayer(1);
     private TwoPlayer player2 = new TwoPlayer(2);
@@ -82,6 +87,19 @@ public class MyWorldVersus extends World
         
         if(transitioning)
             countdownTransition();
+        
+        if(player1.getHealth() <= 0 && player2.getHealth() <= 0){ //Empate
+            isATie = true;
+            gameOver();
+        }   
+        else if(player1.getHealth() <= 0){ //Jugador 2 Gana
+            player2Win = true;
+            gameOver(); 
+        }
+        else if(player2.getHealth() <= 0){ //Jugador 1 gana
+            player1Win = true;
+            gameOver();
+        }
         
         if(keyPressedP1 == false){
             for(int i = 0; i <= 11; i++)
@@ -242,12 +260,21 @@ public class MyWorldVersus extends World
         String player1AnswerString = answersP1[0]+answersP1[1];
         player1Answer = Integer.parseInt(player1AnswerString);        
         }
-
-        if(player1Answer != correctAnswer || answersP1[0] == ""){//Incorrecto
+        else
+        player1Answer = 0;
+        
+        if(sentByP1 == true && player1Answer != correctAnswer && player1Correct == false){
             player1Correct = false;
+            player2Correct = true; 
+            sentByP1 = false;
         }
-        else{//Correcto
+        else if(player1Correct == false){
+            if(player1Answer != correctAnswer || answersP1[0] == "" && player1Correct == true){//Incorrecto
+            player1Correct = false;
+            }
+            else{//Correcto
             player1Correct = true;
+            }
         }
         
         //Jugador 2
@@ -256,42 +283,92 @@ public class MyWorldVersus extends World
         String player2AnswerString = answersP2[0]+answersP2[1];
         player2Answer = Integer.parseInt(player2AnswerString);        
         }
+        else
+        player1Answer = 0;
         
-        if(player2Answer != correctAnswer || answersP2[0] == ""){//Incorrecto
+        if(sentByP2 == true && player2Answer != correctAnswer && player2Correct == false){
+            player1Correct = true;
+            player2Correct = false; 
+            sentByP2 = false;
+        }
+        else if(player2Correct == false){
+            if(player2Answer != correctAnswer || answersP2[0] == "" && player2Correct == true){//Incorrecto
             player2Correct = false;
-        }
-        else{//Correcto
+            }
+            else{//Correcto
             player2Correct = true;
+            }
         }
         
-        if(player1Correct && !player2Correct){
+        if(player1Correct && !player2Correct){ //Jugador 1 Gana
             healthBarP2.damage();
             player1.toggleAttack();
             player2.toggleDamage();
             transitioning = true;
-            System.out.println("Player 1 Wins");
         }
-        else if(!player1Correct && player2Correct){
+        else if(!player1Correct && player2Correct){ //Jugador 2 Gana
             healthBarP1.damage();
             player1.toggleDamage();
             player2.toggleAttack();
             transitioning = true;
-            System.out.println("Player 2 Wins");
         }
-        else if(!player1Correct && !player2Correct){
+        else if(!player1Correct && !player2Correct){ //Empate de fallo
             healthBarP1.damage();
             healthBarP2.damage();
             player1.toggleBothFail();
             player2.toggleBothFail();
             transitioning = true;
-            System.out.println("Both Fail");
         }
-        else{
+        else{ //Empate de exito
             player1.toggleBothSucced();
             player2.toggleBothSucced();
             transitioning = true;
-            System.out.println("Both Succed");
         }
+    }
+    
+    public void gameOver(){
+        beginGame = false;
+        gameOver = true;
+        transitioning = false;
+        
+        addObject(startingCountdown,640,360);
+        
+        if(isATie){
+            player1.tie();
+            player2.tie();
+            GreenfootImage gameOverScreen = new GreenfootImage("Tie.png");
+            startingCountdown.setImage(gameOverScreen);
+        }
+        else if(player1Win){
+            player1.win();
+            player2.lose();
+            GreenfootImage gameOverScreen = new GreenfootImage("Player1Wins.png");
+            startingCountdown.setImage(gameOverScreen);
+        }
+            
+        else if(player2Win){
+            GreenfootImage gameOverScreen = new GreenfootImage("Player2Wins.png");
+            startingCountdown.setImage(gameOverScreen);
+            player2.win();
+            player1.lose();
+        }
+            
+        
+        removeObject(operations);
+        removeObject(num1_1);
+        removeObject(operator);
+        removeObject(num2_1);
+        removeObject(timer);
+        
+        removeObject(answerBarP1);
+        removeObject(answerBarP2);
+        removeObject(ans1P1);
+        removeObject(ans2P1);
+        removeObject(ans1P2);
+        removeObject(ans2P2);
+        
+        removeObject(healthBarP1);
+        removeObject(healthBarP2);
     }
     
     public void changeNumbers(){
@@ -491,6 +568,7 @@ public class MyWorldVersus extends World
         }
         else if(Greenfoot.isKeyDown("enter")){
             keyPressedP1 = true;
+            sentByP1 = true;
             
             keyRepeatP1[10]++;
             
@@ -531,7 +609,7 @@ public class MyWorldVersus extends World
             if(keyRepeatP2[1] <= 1){
             GreenfootImage img = new GreenfootImage(imagesNamesAnswer[1]);
             
-                if(numberPositionP1 <= 1)
+                if(numberPositionP2 <= 1)
                 {
                     ansListP2[numberPositionP2].setImage(img);
                     answersP2[numberPositionP2] = "1";
@@ -685,6 +763,7 @@ public class MyWorldVersus extends World
         }
         else if(Greenfoot.isKeyDown("space")){
             keyPressedP2 = true;
+            sentByP2 = true;
             
             keyRepeatP2[10]++;
             
