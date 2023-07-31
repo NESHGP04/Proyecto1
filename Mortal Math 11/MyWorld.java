@@ -30,7 +30,7 @@ public class MyWorld extends World
     private boolean keyPressed = false;
     
     private Player player = new Player();
-    private Enemy enemy = new Enemy();
+    private Enemy enemy = new Enemy(1, 768, 496);
     
     private Answer ans1 = new Answer();
     private Answer ans2 = new Answer();
@@ -43,6 +43,8 @@ public class MyWorld extends World
     private String[] imagesTimer = {"Timer1.png","Timer2.png","Timer3.png","Timer4.png","Timer5.png","Timer6.png"}; //Imagenes del timer
     private String[] imagesStartingTimer = {"start3.png","start2.png","start1.png","startFight.png"};
     
+    private TextLabel textLabel = new TextLabel("Enemies defeated: "+enemiesDefeated,1);
+    
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -52,7 +54,6 @@ public class MyWorld extends World
     
     public void act(){
         if(gameOver){
-            showEnemiesDefeated("",768,45);
             return;
         }
         
@@ -70,22 +71,22 @@ public class MyWorld extends World
             countdownTransition();
             
         if(player.getHealth() <= 0)
+        {
+            removeObject(textLabel);
+            showEnemiesDefeated("Enemies defeated: ",640,220);
             gameOver();
+        }
+            
             
         if(keyPressed == false){
             for(int i = 0; i <= 11; i++)
                 keyRepeat[i] = 0;
-        }
-        
-        if(!gameOver)
-            showEnemiesDefeated("Enemies defeated: ",768,45);
+        }   
     }
     
     public void showEnemiesDefeated(String theText, int x, int y){
-        theText = theText + enemiesDefeated;
-        GreenfootImage text = new GreenfootImage(theText, 30,Color.WHITE, Color.BLACK);
-        getBackground().drawImage(text, x, y);
-        //showText(("Enemies Defeated: "+ enemiesDefeated),x,y);
+        addObject(textLabel, x, y);
+        textLabel.setText(theText+enemiesDefeated,1);
     }
     
     public void startingCountdown(){
@@ -398,6 +399,7 @@ public class MyWorld extends World
             player.toggleAttack();
             enemy.toggleDamage();
             enemiesDefeated++;
+            showEnemiesDefeated("Enemies defeated: ",841,45);
             transitioning = true;
         }
     }

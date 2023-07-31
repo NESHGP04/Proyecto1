@@ -300,4 +300,9 @@ public class TwoPlayer extends Actor
     public int getHealth(){
         return health;
     }
+    
+    public void undefeat()
+    {
+        defeated = false;
+    }
 }

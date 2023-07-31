@@ -34,4 +34,9 @@ public class HealthBar extends Actor
             this.setImage(img);
         }
     }
+    
+    public void setDamage(int damage)
+    {
+        this.damage = damage;
+    }
 }

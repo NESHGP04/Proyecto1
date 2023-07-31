@@ -94,6 +94,7 @@ public class Player extends Actor
             case 50:
                 GreenfootImage defeatImage = new GreenfootImage("Defeated.png");
                 setImage(defeatImage);
+                setLocation(getX()-20,getY());
                 break;
         }
         
