@@ -342,6 +342,7 @@ public class MyWorldCoop extends World
         timer2.setImage("Timer1-s.png");
         
         addObject(player1,855,549);//Jugador
+        player1.setImage("Character1-s.png");
         addObject(player2,380+50,549);//Jugador 2
         player2.setImage("2P-s.png");
         

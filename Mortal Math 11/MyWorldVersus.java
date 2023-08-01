@@ -236,6 +236,7 @@ public class MyWorldVersus extends World
         timer.setImage("Timer1-s.png");
         
         addObject(player1,530,549);//Jugador
+        player1.setImage("Character1-s.png");
         addObject(player2,734,549);//Jugador 2
         player2.setImage("2P-s.png");
         
