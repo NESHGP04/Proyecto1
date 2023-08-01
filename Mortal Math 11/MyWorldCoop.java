@@ -81,8 +81,6 @@ public class MyWorldCoop extends World
     private TextLabel totalScore = new TextLabel("Text",2);
     
     private GreenfootSound backgroundMusic = new GreenfootSound("fight.wav");
-    private GreenfootSound previousMusic = new GreenfootSound("menu.wav");
-    private int musicPlay = 0;
     
     public MyWorldCoop()
     {    
