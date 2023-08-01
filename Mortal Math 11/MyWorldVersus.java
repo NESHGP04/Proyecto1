@@ -68,6 +68,15 @@ public class MyWorldVersus extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1); 
         setBackground("fondoTraining.jpg");
+
+        //Adds background music
+        GreenfootSound sound = new GreenfootSound("Syndrome-Mortal-Kombat-_Hard-Trance-Techno-Remix_.wav.crdownload");        
+        sound.play();
+        while (gameOver == true){
+            sound.pause();
+            GreenfootSound overSound = new GreenfootSound("Game-over.wav");
+            overSound.play();
+        }
     }
     
     public void act(){
@@ -119,6 +128,8 @@ public class MyWorldVersus extends World
             case 150:
                 GreenfootImage imageStartTimer2 = new GreenfootImage(imagesStartingTimer[1]);
                 startingCountdown.setImage(imageStartTimer2);
+                GreenfootSound sound = new GreenfootSound("Countdown.wav");
+                sound.play();
                 break;
             case 100:
                 GreenfootImage imageStartTimer3 = new GreenfootImage(imagesStartingTimer[2]);

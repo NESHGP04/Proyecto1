@@ -31,6 +31,7 @@ public class Player extends Actor
     public void toggleDamage(){
         isGettingHit = true;
         health--;
+        Greenfoot.playSound("Gets-hit.wav"); //Hitting sound
     }
     
     public void damage(){
@@ -57,6 +58,7 @@ public class Player extends Actor
     
     public void toggleAttack(){
         isAttacking = true;
+        Greenfoot.playSound("Punch.wav"); //Punching sound
     }
     
     public void attack(){
