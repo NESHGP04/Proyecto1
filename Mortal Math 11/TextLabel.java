@@ -9,10 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class TextLabel extends Actor
 {
     public TextLabel(String text, int color){
-        GreenfootImage textImg = new GreenfootImage(text, 40,Color.WHITE, new Color(0, 0, 0, 0));
+        GreenfootImage textImg = new GreenfootImage(text, 40,Color.BLACK, new Color(0, 0, 0, 0));
         switch(color){
             case 1:
-                textImg = new GreenfootImage(text, 40,Color.WHITE, new Color(0, 0, 0, 0));
+                textImg = new GreenfootImage(text, 40,Color.BLACK, new Color(0, 0, 0, 0));
                 setImage(textImg); 
                 break;
             case 2:
@@ -20,7 +20,7 @@ public class TextLabel extends Actor
                 setImage(textImg); 
                 break;
             case 3:
-                textImg = new GreenfootImage(text, 40,Color.GREEN, new Color(0, 0, 0, 0));
+                textImg = new GreenfootImage(text, 40,new Color(102, 204, 0, 255), new Color(0, 0, 0, 0));
                 setImage(textImg); 
                 break;
         }
@@ -30,7 +30,7 @@ public class TextLabel extends Actor
         GreenfootImage textImg = new GreenfootImage(text, 40,Color.WHITE, new Color(0, 0, 0, 0));
         switch(color){
             case 1:
-                textImg = new GreenfootImage(text, 40,Color.WHITE, new Color(0, 0, 0, 0));
+                textImg = new GreenfootImage(text, 40,Color.BLACK, new Color(0, 0, 0, 0));
                 setImage(textImg); 
                 break;
             case 2:
@@ -38,7 +38,7 @@ public class TextLabel extends Actor
                 setImage(textImg); 
                 break;
             case 3:
-                textImg = new GreenfootImage(text, 40,Color.GREEN, new Color(0, 0, 0, 0));
+                textImg = new GreenfootImage(text, 40,new Color(0, 204, 0, 255), new Color(0, 0, 0, 0));
                 setImage(textImg); 
                 break;
         }

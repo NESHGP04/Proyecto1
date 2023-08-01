@@ -66,18 +66,12 @@ public class Enemy extends Actor
             if(getX() <= 1280 && moveRight == true)
             setLocation(getX()+speed,getY());
         
-            if(getX() == 1280)
-            setImage("empty.png");
-        
             if(getX() >= x && moveLeft == true)
             setLocation(getX()-speed,getY());
         }
         else{
             if(getX() >= 0 && moveLeft == true)
             setLocation(getX()-speed,getY());
-        
-            if(getX() == 1280)
-            setImage("empty.png");
         
             if(getX() <= x && moveRight == true)
             setLocation(getX()+speed,getY());
@@ -119,6 +113,7 @@ public class Enemy extends Actor
         if(animDuration <= 0){
             isGettingHit = false;
             moveLeft = false;
+            moveRight = false;
             animDuration = 100;
         }        
     }

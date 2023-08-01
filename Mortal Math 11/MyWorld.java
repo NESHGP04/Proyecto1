@@ -39,26 +39,20 @@ public class MyWorld extends World
     
     private String[] answers = {"","",""};
     
+    
     private String[] imagesNames = {"0.png","1.png","2.png","3.png","4.png","5.png","6.png","7.png","8.png","9.png"}; //Imagenes de los numeros
     private String[] imagesTimer = {"Timer1.png","Timer2.png","Timer3.png","Timer4.png","Timer5.png","Timer6.png"}; //Imagenes del timer
     private String[] imagesStartingTimer = {"start3.png","start2.png","start1.png","startFight.png"};
     
     private TextLabel textLabel = new TextLabel("Enemies defeated: "+enemiesDefeated,1);
+    private GreenfootSound backgroundMusic = new GreenfootSound("fight.wav");
+    private int musicPlay = 0;
     
     public MyWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1); 
-        setBackground("fondoTraining.jpg");
-       
-        //Adds background music
-        GreenfootSound sound = new GreenfootSound("Syndrome-Mortal-Kombat-_Hard-Trance-Techno-Remix_.wav.crdownload");        
-        sound.play();
-        while (gameOver == true){
-            sound.pause();
-            GreenfootSound overSound = new GreenfootSound("Game-over.wav");
-            overSound.play();
-        }
+        setBackground("Background.jpg");
     }
     
     public void act(){
@@ -82,15 +76,14 @@ public class MyWorld extends World
         if(player.getHealth() <= 0)
         {
             removeObject(textLabel);
-            showEnemiesDefeated("Enemies defeated: ",640,220);
             gameOver();
         }
-            
             
         if(keyPressed == false){
             for(int i = 0; i <= 11; i++)
                 keyRepeat[i] = 0;
         }   
+        
     }
     
     public void showEnemiesDefeated(String theText, int x, int y){
@@ -102,12 +95,13 @@ public class MyWorld extends World
         addObject(startingCountdown,640,360);
             switch(startTimer)
             {
+            case 200:
+                GreenfootSound sound = new GreenfootSound("Countdown.wav"); //Countdown sound
+                sound.play();
+                break;
             case 150:
                 GreenfootImage imageStartTimer2 = new GreenfootImage(imagesStartingTimer[1]);
                 startingCountdown.setImage(imageStartTimer2);
-                
-                GreenfootSound sound = new GreenfootSound("Countdown.wav"); //Countdown sound
-                sound.play();
                 break;
             case 100:
                 GreenfootImage imageStartTimer3 = new GreenfootImage(imagesStartingTimer[2]);
@@ -402,7 +396,7 @@ public class MyWorld extends World
         playerAnswer = 0;
         
         if(playerAnswer != correctAnswer || answers[0] == ""){//Incorrecto
-            healthBar.damage();
+            healthBar.doubleDamage();
             player.toggleDamage();
             enemy.toggleAttack();
             transitioning = true;
@@ -501,11 +495,11 @@ public class MyWorld extends World
         enemy.win();
         
         showText("",768,45);
-        showEnemiesDefeated("Enemies defeated: ",520,220);
         addObject(startingCountdown,640,360);
         GreenfootImage gameOverScreen = new GreenfootImage("GameOverScreen.png");
         startingCountdown.setImage(gameOverScreen);
         
+        showEnemiesDefeated("Enemies defeated: ",640,220);
         removeObject(operations);
         removeObject(num1_1);
         removeObject(operator);

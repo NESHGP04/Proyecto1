@@ -1,15 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class HealthBar here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class HealthBar extends Actor
 {
-    private String[] imagesBar1 = {"Bar100.png","Bar80.png","Bar60.png","Bar40.png","Bar20.png","Bar0.png"};
-    private String[] imagesBar2 = {"Bar100-P2.png","Bar80-P2.png","Bar60-P2.png","Bar40-P2.png","Bar20-P2.png","Bar0-P2.png"};
+    private String[] imagesBar1 = {"Bar100.png","Bar90.png","Bar80.png","Bar70.png","Bar60.png","Bar50.png","Bar40.png","Bar30.png","Bar20.png","Bar10.png","Bar0.png"};
+    private String[] imagesBar2 = {"Bar100-P2.png","Bar90-P2.png","Bar80-P2.png","Bar70-P2.png","Bar60-P2.png","Bar50-P2.png","Bar40-P2.png","Bar30-P2.png","Bar20-P2.png","Bar10-P2.png","Bar0-P2.png"};
     private String[] imagesBar;
     private int damage;
     private int barIndex;
@@ -27,6 +21,17 @@ public class HealthBar extends Actor
     
     public void damage(){
         damage++;
+        
+        if(damage < imagesBar.length)
+        {
+            GreenfootImage img = new GreenfootImage(imagesBar[damage]);
+            this.setImage(img);
+        }
+    }
+    
+    public void doubleDamage()
+    {
+        damage += 2;
         
         if(damage < imagesBar.length)
         {

@@ -80,20 +80,15 @@ public class MyWorldCoop extends World
     private TextLabel player2Score = new TextLabel("Text",2);
     private TextLabel totalScore = new TextLabel("Text",2);
     
+    private GreenfootSound backgroundMusic = new GreenfootSound("fight.wav");
+    private GreenfootSound previousMusic = new GreenfootSound("menu.wav");
+    private int musicPlay = 0;
+    
     public MyWorldCoop()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1); 
-        setBackground("fondoTraining.jpg");
-
-        //Adds background music
-        GreenfootSound sound = new GreenfootSound("Syndrome-Mortal-Kombat-_Hard-Trance-Techno-Remix_.wav.crdownload");        
-        sound.play();
-        while (gameOver == true){
-            sound.pause();
-            GreenfootSound overSound = new GreenfootSound("Game-over.wav");
-            overSound.play();
-        }
+        setBackground("Background.jpg");
     }
     
     public void act(){
@@ -125,45 +120,12 @@ public class MyWorldCoop extends World
             removeObject(player1Score);
             removeObject(player2Score);
             removeObject(totalScore);
-            showEnemiesDefeated("Total Enemies: ",640,220);
-            showEnemiesDefeatedP1("Player 1 Enemies Defeated: ",640,250);
-            showEnemiesDefeatedP2("Player 2 Enemies Defeated: ",640,280);
             player1.lose();
             player2.lose();
             enemy.win();
             enemy2.win();
             gameOver();
         }   
-        /*else if(player1.getHealth() <= 0){ //Jugador 1 Pierde
-            player1.lose();
-            enemy.win();
-            player1Lose = true;
-            
-            removeObject(timer);
-            removeObject(answerBarP1);
-            removeObject(ans1P1);
-            removeObject(ans2P1);
-            
-            removeObject(operations);
-            removeObject(num1_1);
-            removeObject(operator);
-            removeObject(num2_1);
-        }
-        else if(player2.getHealth() <= 0){ //Jugador 2 Pierde
-            player2.lose();
-            enemy2.win();
-            player2Lose = true;
-            
-            removeObject(timer2);
-            removeObject(answerBarP2);
-            removeObject(ans1P2);
-            removeObject(ans2P2);
-            
-            removeObject(operations2);
-            removeObject(numb1_1);
-            removeObject(operator2);
-            removeObject(numb2_1);
-        }*/
         
         if(keyPressedP1 == false){
             for(int i = 0; i <= 11; i++)
@@ -195,12 +157,13 @@ public class MyWorldCoop extends World
         addObject(startingCountdown,640,360);
             switch(startTimer)
             {
+            case 200:
+                GreenfootSound sound = new GreenfootSound("Countdown.wav"); //Countdown sound
+                sound.play();
+                break;
             case 150:
                 GreenfootImage imageStartTimer2 = new GreenfootImage(imagesStartingTimer[1]);
                 startingCountdown.setImage(imageStartTimer2);
-
-                GreenfootSound sound = new GreenfootSound("Countdown.wav"); //Countdown sound
-                sound.play();
                 break;
             case 100:
                 GreenfootImage imageStartTimer3 = new GreenfootImage(imagesStartingTimer[2]);
@@ -235,8 +198,6 @@ public class MyWorldCoop extends World
             case 120:
                 GreenfootImage imageTimer2 = new GreenfootImage(imagesTimer[1]);
                 timer.setImage(imageTimer2);
-                GreenfootSound sound = new GreenfootSound("Countdown.wav");
-                sound.play();
                 break;
             case 90:
                 GreenfootImage imageTimer3 = new GreenfootImage(imagesTimer[2]);
@@ -425,7 +386,7 @@ public class MyWorldCoop extends World
         player1Answer = 0;
         
         if(player1Answer != correctAnswer || answersP1[0] == ""){//Incorrecto
-            healthBarP1.damage();
+            healthBarP1.doubleDamage();
             player1.toggleDamage();
             enemy.toggleAttack();
             transitioning = true;
@@ -477,7 +438,7 @@ public class MyWorldCoop extends World
         player2Answer = 0;
         
         if(player2Answer != correctAnswer || answersP2[0] == ""){//Incorrecto
-            healthBarP2.damage();
+            healthBarP2.doubleDamage();
             player2.toggleDamage();
             enemy2.toggleAttack();
             transitioning2 = true;
@@ -522,9 +483,8 @@ public class MyWorldCoop extends World
         player1.undefeat();
         player1.setHealth(3);
         player1Lose = false; 
-        healthBarP1.setDamage(1);
+        healthBarP1.setDamage(3);
         healthBarP1.damage();
-        player1.toggleAttack();
         enemy.unvictory();
         enemy.toggleDamage();
         transitioning = true;
@@ -553,9 +513,8 @@ public class MyWorldCoop extends World
         player2.undefeat();
         player2.setHealth(3);
         player2Lose = false; 
-        healthBarP2.setDamage(1);
+        healthBarP2.setDamage(3);
         healthBarP2.damage();
-        player2.toggleAttack();
         enemy2.unvictory();
         enemy2.toggleDamage();
         transitioning2 = true;
@@ -587,6 +546,10 @@ public class MyWorldCoop extends World
         
         addObject(startingCountdown,640,360);
         startingCountdown.setImage("GameOverScreen.png");
+        
+        showEnemiesDefeated("Total Enemies: ",640,220);
+        showEnemiesDefeatedP1("Player 1 Enemies Defeated: ",640,250);
+        showEnemiesDefeatedP2("Player 2 Enemies Defeated: ",640,280);
         
         removeObject(operations);
         removeObject(num1_1);

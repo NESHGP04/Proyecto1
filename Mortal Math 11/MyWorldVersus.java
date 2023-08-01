@@ -63,20 +63,16 @@ public class MyWorldVersus extends World
     private String[] imagesTimer = {"Timer1-s.png","Timer2-s.png","Timer3-s.png","Timer4-s.png","Timer5-s.png","Timer6-s.png"}; //Imagenes del timer
     private String[] imagesStartingTimer = {"start3.png","start2.png","start1.png","startFight.png"};
     
+    private GreenfootSound backgroundMusic = new GreenfootSound("fight.wav");
+    private int musicPlay = 0;
+    
     public MyWorldVersus()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(1280, 720, 1); 
-        setBackground("fondoTraining.jpg");
-
-        //Adds background music
-        GreenfootSound sound = new GreenfootSound("Syndrome-Mortal-Kombat-_Hard-Trance-Techno-Remix_.wav.crdownload");        
-        sound.play();
-        while (gameOver == true){
-            sound.pause();
-            GreenfootSound overSound = new GreenfootSound("Game-over.wav");
-            overSound.play();
-        }
+        setBackground("Background.jpg");
+        player1.setHealth(10);
+        player2.setHealth(10);
     }
     
     public void act(){
@@ -125,11 +121,13 @@ public class MyWorldVersus extends World
         addObject(startingCountdown,640,360);
             switch(startTimer)
             {
+            case 200:
+                GreenfootSound sound = new GreenfootSound("Countdown.wav"); //Countdown sound
+                sound.play();
+                break;
             case 150:
                 GreenfootImage imageStartTimer2 = new GreenfootImage(imagesStartingTimer[1]);
                 startingCountdown.setImage(imageStartTimer2);
-                GreenfootSound sound = new GreenfootSound("Countdown.wav");
-                sound.play();
                 break;
             case 100:
                 GreenfootImage imageStartTimer3 = new GreenfootImage(imagesStartingTimer[2]);

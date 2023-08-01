@@ -18,6 +18,7 @@ public class TwoPlayer extends Actor
     private boolean defeated = false;
     private boolean victory = false;
     private boolean tie = false;
+    private boolean reviving = false;
     
     private String[] player1Anims = {"Character1-s.png","Punching-s.png","Hitted-s.png","Recovering-s.png","Defeated-s.png","Victory-s.png","TiePunch-s.png","Defend-s.png"}; 
     private String[] player2Anims = {"2P-s.png","2PPunching-s.png","2PHitted-s.png","2PRecovering-s.png","2PDefeated-s.png","2PVictory-s.png","2PTiePunch-s.png","2PDefend-s.png"}; 
@@ -70,12 +71,14 @@ public class TwoPlayer extends Actor
         
         if(bothFailed)
         bothFail();
+        
+        if(reviving)
+        revive();
     }
     
     public void toggleDamage(){
         isGettingHit = true;
         health--;
-        Greenfoot.playSound("Gets-hit.wav"); //Hitting sound
     }
     
     public void damage(){
@@ -102,7 +105,6 @@ public class TwoPlayer extends Actor
     
     public void toggleAttack(){
         isAttacking = true;
-        Greenfoot.playSound("Punch.wav"); //Punching sound
     }
     
     public void attack(){
@@ -133,9 +135,30 @@ public class TwoPlayer extends Actor
         } 
     }
     
+    public void revive(){
+        switch(animDuration){
+            case 100:
+                GreenfootImage punchImage = new GreenfootImage(playerAnims[3]);
+                setImage(punchImage);
+                break;
+            case 0:
+                GreenfootImage idleImage = new GreenfootImage(playerAnims[0]);
+                setImage(idleImage);
+                break;
+        }
+        
+        animDuration--;
+        
+        if(animDuration <= 0){
+            reviving = false;
+            GreenfootImage idleImage = new GreenfootImage(playerAnims[0]);
+            setImage(idleImage);
+            animDuration = 100;
+        } 
+    }
+    
     public void toggleBothSucced(){
         bothSucceded = true;
-        Greenfoot.playSound("Win.wav"); //Winning sound
     }
     
     public void bothSucced(){
@@ -307,5 +330,6 @@ public class TwoPlayer extends Actor
     public void undefeat()
     {
         defeated = false;
+        reviving = true;
     }
 }
