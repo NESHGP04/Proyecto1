@@ -1,0 +1,12 @@
+LEEME:
+Para jugarlo correctamente, hay que instanciar Inicio(); 
+Darle click derecho a la clase Inicio y luego new Inicio()
+
+Esto ya que Greenfoot por predeterminado agarra el MyWorld,
+en caso de que se exportara el juego, ya se iniciaria con
+Inicio().
+
+Cualquier cosa, lo respaldo con estos datos de la discusión
+oficial:
+https://www.greenfoot.org/topics/2743
+https://www.greenfoot.org/topics/3535
